@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray">#838383</color>
+    <color name="light_gray">#44838383</color>
+    <color name="transparent">#00000000</color>
+    <color name="DeepSkyBlue">#00BFFF</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#ff0000</color>
+    <color name="black">#000000</color>
+    
+    <color name="tab_bg">#cdcdcd</color>
+    <color name="tab_text_press">#1C86EE</color>
+    <color name="tab_text_normal">#8b8b8b</color>
+</resources>

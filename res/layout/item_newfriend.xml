@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/new_friend"
+    android:visibility="gone"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/button_transparent_on_press" >
+		
+  	<ImageView
+		android:id="@+id/avatar"
+		android:layout_width="80dp"
+		android:layout_height="80dp"
+		android:layout_marginLeft="10dp"
+		android:padding="5dp"
+		android:src="@drawable/ic_default_avatar" />
+  
+  	<TextView 
+		android:id="@+id/name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/avatar"
+		android:layout_centerVertical="true"
+		android:layout_marginLeft="10dp"
+		android:textSize="18sp"
+		android:text="@string/new_friend" />
+  
+  	<Button 
+		android:id="@+id/agree_btn" 
+		android:layout_width="wrap_content"
+		android:layout_height="40dp"
+		android:layout_alignParentRight="true"
+		android:layout_centerVertical="true"
+		android:layout_marginRight="10dp"
+		android:text="同意"
+		android:textColor="@color/white"
+		android:background="@drawable/button_on_press"/>
+ 
+</RelativeLayout>
+	

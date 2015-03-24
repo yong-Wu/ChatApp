@@ -1,0 +1,84 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"    
+    android:id="@+id/id_scroll_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white" >
+
+	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+    	android:layout_gravity="center"
+        android:orientation="vertical" >
+          
+	    <ImageView 
+	        android:layout_marginBottom="20dp"
+	        android:layout_width="100dp"
+	        android:layout_height="80dp"
+	        android:scaleType="fitXY"
+	        android:src="@drawable/logo"
+	        android:layout_gravity="center_horizontal"/>
+
+         <LinearLayout
+             android:id="@+id/id_input_group"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical" >
+
+             <EditText
+                 android:id="@+id/userName"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="@string/nick_name"
+                 android:singleLine="true" />
+
+             <RelativeLayout 
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center_vertical"
+                 android:layout_marginTop="10dp">
+                 
+                 <EditText
+	                 android:id="@+id/passwd"
+	                 android:layout_width="fill_parent"
+	                 android:layout_height="wrap_content"
+	                 android:hint="@string/password"
+	                 android:inputType="textPassword"
+	                 android:singleLine="true" />
+                 
+                 <ToggleButton
+                     android:id="@+id/isShowPassword"
+                     android:layout_height="20dp"
+                     android:layout_width="40dp"
+                     android:layout_alignParentRight="true"
+                     android:background="@drawable/password_toggle"
+                     android:layout_marginTop="5dp"
+                     android:layout_marginRight="5dp"
+                     android:textOff=""
+                     android:textOn="" />
+             </RelativeLayout>
+             
+         </LinearLayout>
+
+         <Button
+             android:id="@+id/btn_login"
+             android:layout_width="fill_parent"
+             android:layout_height="50dp"
+             android:layout_marginTop="15dp"
+             android:background="@drawable/button_on_press"
+             android:textColor="#ffffff"
+             android:text="@string/login" />
+
+         <TextView
+             android:id="@+id/register"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="left"
+             android:padding="12dp"
+             android:textSize="18sp"
+             android:textColor="@color/gray"
+             android:text="注册？" />
+          
+	</LinearLayout>
+</ScrollView>

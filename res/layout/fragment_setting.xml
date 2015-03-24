@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white" >
+    
+    <RelativeLayout
+        android:id="@+id/person_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_transparent_on_press"
+        android:minHeight="50dp"
+        android:padding="10dp" >
+        
+        <TextView
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:text="@string/person_info" />
+        
+        <TextView
+            android:id="@+id/person_name"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:drawablePadding="10dp"
+            android:textSize="18sp"
+            android:drawableRight="@drawable/ic_arrow_right" />
+    </RelativeLayout>
+    
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_on_press"
+	    android:textColor="#ffffff"
+        android:text="@string/logout" />
+
+</LinearLayout>

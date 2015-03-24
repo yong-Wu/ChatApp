@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/DeepSkyBlue"  >
+    
+    <TextView android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"   
+        android:text="聊天"
+        android:textSize="18sp"/>
+    
+    <LinearLayout
+        android:id="@+id/main_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/message_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/tab_bg"
+                android:drawableTop="@drawable/tab_message_btn"
+                android:onClick="onTabSelect"
+                android:paddingBottom="2dip"
+                android:paddingTop="7dip"
+                android:scaleType="matrix"
+                android:text="@string/tab_message"
+                android:textColor="@drawable/tab_text_color"
+                android:textSize="12sp" />
+            
+            <ImageView
+                android:id="@+id/message_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/msg_tips"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:visibility="visible" />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/contact_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/tab_bg"
+                android:drawableTop="@drawable/tab_contact_btn"
+                android:onClick="onTabSelect"
+                android:paddingBottom="2dip"
+                android:paddingTop="7dip"
+                android:scaleType="matrix"
+                android:text="@string/tab_contact"
+                android:textColor="@drawable/tab_text_color"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/contact_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/msg_tips"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:visibility="visible" />
+        </RelativeLayout>
+            
+        <Button
+            android:id="@+id/setting_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/tab_bg"
+            android:drawableTop="@drawable/tab_setting_btn"
+            android:onClick="onTabSelect"
+            android:paddingBottom="2dip"
+            android:paddingTop="7dip"
+            android:scaleType="matrix"
+            android:text="@string/tab_setting"
+            android:textColor="@drawable/tab_text_color"
+            android:textSize="12sp" />
+                
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/fragment_container"
+        android:layout_marginTop="@dimen/abc_action_bar_default_height"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_above="@id/main_bottom" />
+    
+</RelativeLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ChatApp</string>
+    <string name="tab_message">聊天</string>
+    <string name="tab_contact">联系人</string>
+    <string name="tab_setting">设置</string>
+
+    <string name="null_name">昵称不能为空</string>
+    <string name="null_password">密码不能为空</string>
+    
+    <string name="network_useless">当前网络不可用,请检查您的网络!</string>
+    
+    <string name="person_info">个人资料</string>
+    <string name="logout">退出登录</string>
+    <string name="nick_name">昵称</string>
+    <string name="gender">性别</string>
+    <string name="password">密码</string>
+    <string name="register">注册</string>
+    <string name="login">登录</string>
+    
+    <string name="new_friend">新朋友</string>
+    <string name="add_friend">添加朋友</string>
+    <string name="search_name">搜索昵称</string>
+</resources>
