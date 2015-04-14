@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"   
         android:text="聊天"
-        android:textSize="18sp"/>
+        android:textSize="@dimen/titleSize"/>
     
     <LinearLayout
         android:id="@+id/main_bottom"

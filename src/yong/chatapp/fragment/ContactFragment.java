@@ -3,10 +3,8 @@ package yong.chatapp.fragment;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.im.db.BmobDB;
-
 import yong.chatapp.ChatApplication;
 import yong.chatapp.R;
 import yong.chatapp.activity.NewFriendsActivity;
@@ -30,6 +28,7 @@ import android.widget.TextView;
 public class ContactFragment extends FragmentBase {
 
 	private ListView friendsListView;
+	private LinearLayout headview; 
 	private List<UserInfo> userList = new ArrayList<UserInfo>();
 	private ContactAdapter adapter;
 	
@@ -43,13 +42,15 @@ public class ContactFragment extends FragmentBase {
 
 	private void initView(View view) {
 		friendsListView = (ListView)view.findViewById(R.id.list_friends);
-		LinearLayout headview = (LinearLayout)mInflater.inflate(R.layout.item_contact, null);
+		headview = (LinearLayout)mInflater.inflate(R.layout.item_contact, null);
 		((ImageView)headview.findViewById(R.id.avatar)).setImageResource(R.drawable.ic_new_friend);
 		headview.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
-				startActivity(NewFriendsActivity.class);
+				Intent intent = new Intent(getActivity(), NewFriendsActivity.class);
+				intent.putExtra("from", "contact");
+				startActivity(intent);
 			}
 		});
 		friendsListView.addHeaderView(headview);
@@ -67,6 +68,11 @@ public class ContactFragment extends FragmentBase {
 			}
 		});
 		
+		queryFriends();
+	}
+
+	private void queryFriends() {
+		
 		//是否有新的好友请求
 		if(BmobDB.create(getActivity()).hasNewInvite()){
 			((TextView)headview.findViewById(R.id.name)).setTextColor(getResources().getColor(R.color.red));
@@ -74,10 +80,6 @@ public class ContactFragment extends FragmentBase {
 			((TextView)headview.findViewById(R.id.name)).setTextColor(getResources().getColor(R.color.black));
 		}		
 		
-		queryFriends();
-	}
-
-	private void queryFriends() {
 		ChatApplication.getInstance().setContactList(CollectionUtils.list2map(BmobDB.create(getActivity()).getContactList()));
 		
 		Map<String,BmobChatUser> users = ChatApplication.getInstance().getContactList();
@@ -104,6 +106,36 @@ public class ContactFragment extends FragmentBase {
 			userInfo.setContacts(user.getContacts());
 			
 			userList.add(userInfo);
+		}
+	}
+	
+	private boolean hidden;
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		this.hidden = hidden;
+		if(!hidden){
+			refresh();
+		}
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(!hidden){
+			refresh();
+		}
+	}
+	
+	public void refresh(){
+		try {
+			getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					queryFriends();
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

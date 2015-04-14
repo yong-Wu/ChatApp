@@ -17,7 +17,7 @@
         android:drawableLeft="@drawable/ic_arrow_left"
         android:drawablePadding="4dp"
         android:text="@string/new_friend"
-        android:textSize="16sp"/>
+        android:textSize="@dimen/titleSize"/>
     
     <TextView android:id="@+id/add_friend"
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         android:layout_alignParentRight="true"
         android:textColor="@color/white" 
         android:text="@string/add_friend"
-        android:textSize="16sp" />
+        android:textSize="@dimen/titleSize" />
     
     <ListView
 		android:id="@+id/list_friends"

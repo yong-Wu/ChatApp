@@ -108,6 +108,8 @@ public class NewFriendAdapter extends BaseAdapter {
 			viewHolder.agree.setTextColor(context.getResources().getColor(R.color.gray));
 		}
 		
+		viewHolder.name.setText(msg.getFromname());
+		
 		return convertView;
 	}
 

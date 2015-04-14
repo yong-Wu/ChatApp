@@ -15,6 +15,9 @@
     <string name="logout">退出登录</string>
     <string name="nick_name">昵称</string>
     <string name="gender">性别</string>
+    <string name="begin_chat">开始聊天</string>
+    <string name="delete_friend">删除好友</string>
+    
     <string name="password">密码</string>
     <string name="register">注册</string>
     <string name="login">登录</string>
@@ -22,4 +25,11 @@
     <string name="new_friend">新朋友</string>
     <string name="add_friend">添加朋友</string>
     <string name="search_name">搜索昵称</string>
+    
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载&#8230;</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
 </resources>

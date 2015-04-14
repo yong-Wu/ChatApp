@@ -64,6 +64,7 @@ public class SettingFragment extends FragmentBase {
 				Intent intent = new Intent(SettingFragment.this.getActivity(), PersonInfoActivity.class);
 				intent.putExtra("username", BmobUserManager.getInstance(getActivity())
 						.getCurrentUser().getUsername());
+				intent.putExtra("from", "me");
 				startActivity(intent);
 			}
 		});

@@ -17,7 +17,7 @@
         android:drawableLeft="@drawable/ic_arrow_left"
         android:drawablePadding="4dp"
         android:text="@string/register"
-        android:textSize="16sp"/>
+        android:textSize="@dimen/titleSize"/>
     
 	<ScrollView 
 	    android:layout_marginTop="@dimen/abc_action_bar_default_height"

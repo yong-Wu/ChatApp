@@ -8,7 +8,7 @@ import android.os.Message;
 
 public class SplashActivity extends BaseActivity {
 
-	private static final String APPID = "07ebf3e1cf0677c9b213e18987cf0f54";
+	private static final String APPID = "7b4eebee5084647cc1bebf60a9f9510e";
 	
 	private static final int GO_HOME = 1;
 	private static final int GO_LOGIN = 2;

@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity {
 	private final BroadcastReceiver mSuccessRegisterReceiver = new BroadcastReceiver() {
 		
 		@Override
-		public void onReceive(Context arg0, Intent arg1) {
+		public void onReceive(Context context, Intent intent) {
 			finish();
 		}
 	};

@@ -2,11 +2,11 @@ package yong.chatapp;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import cn.bmob.im.BmobUserManager;
 import cn.bmob.im.bean.BmobChatUser;
 import yong.chatapp.util.SharePreferenceUtils;
 import android.app.Application;
+import android.media.MediaPlayer;
 
 public class ChatApplication extends Application {
 
@@ -16,6 +16,8 @@ public class ChatApplication extends Application {
 	public final static String PREFERENCE_NAME = "_share_preference_info";
 	
 	private Map<String, BmobChatUser> contactList = new HashMap<String, BmobChatUser>();
+	
+	private MediaPlayer mediaPlayer;
 	
 	@Override
 	public void onCreate() {
@@ -56,5 +58,11 @@ public class ChatApplication extends Application {
 			this.contactList.clear();
 		}
 		this.contactList = contactList;
+	}
+	
+	public synchronized MediaPlayer getMediaPlayer(){
+		if (mediaPlayer == null)
+			mediaPlayer = MediaPlayer.create(this, R.raw.notify);
+		return mediaPlayer;
 	}
 }
