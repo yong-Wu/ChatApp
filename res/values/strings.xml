@@ -13,6 +13,7 @@
     
     <string name="person_info">个人资料</string>
     <string name="logout">退出登录</string>
+    <string name="avatar">头像</string>
     <string name="nick_name">昵称</string>
     <string name="gender">性别</string>
     <string name="begin_chat">开始聊天</string>

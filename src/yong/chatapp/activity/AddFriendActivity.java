@@ -2,11 +2,14 @@ package yong.chatapp.activity;
 
 import java.util.List;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import cn.bmob.im.BmobChatManager;
 import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.im.config.BmobConfig;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.PushListener;
+import yong.chatapp.ChatApplication;
 import yong.chatapp.R;
 import yong.chatapp.model.UserInfo;
 import android.app.ProgressDialog;
@@ -15,6 +18,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class AddFriendActivity extends ActivityBase {
@@ -70,6 +74,14 @@ public class AddFriendActivity extends ActivityBase {
 					
 					findViewById(R.id.new_friend).setVisibility(View.VISIBLE);
 					((TextView)findViewById(R.id.name)).setText(user.getUsername());
+					
+					((ImageView)findViewById(R.id.avatar)).setImageResource(R.drawable.ic_default_avatar);
+					if (!TextUtils.isEmpty(user.getAvatar())){
+						ImageLoader.getInstance().displayImage(user.getAvatar(),
+								(ImageView)findViewById(R.id.avatar), 
+								ChatApplication.getInstance().getAvatarDisplayOptions());
+					}
+					
 					ShowToast("搜索成功");
 					
 					findViewById(R.id.add_btn).setOnClickListener(new View.OnClickListener() {

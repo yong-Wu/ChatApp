@@ -1,14 +1,23 @@
 package yong.chatapp.adapter;
 
 import java.util.List;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import yong.chatapp.ChatApplication;
 import yong.chatapp.R;
+import yong.chatapp.model.UserInfo;
 import yong.chatapp.util.FaceTextUtils;
 import yong.chatapp.util.TimeUtil;
+import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.im.bean.BmobRecent;
 import cn.bmob.im.config.BmobConfig;
 import cn.bmob.im.db.BmobDB;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.GetListener;
 import android.content.Context;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +45,7 @@ public class MessageAdapter extends ArrayAdapter<BmobRecent> implements Filterab
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.item_conversation, parent, false);
 		}
-		ImageView iv_recent_avatar = ViewHolder.get(convertView, R.id.iv_recent_avatar);
+		final ImageView iv_recent_avatar = ViewHolder.get(convertView, R.id.iv_recent_avatar);
 		TextView tv_recent_name = ViewHolder.get(convertView, R.id.tv_recent_name);
 		TextView tv_recent_msg = ViewHolder.get(convertView, R.id.tv_recent_msg);
 		TextView tv_recent_time = ViewHolder.get(convertView, R.id.tv_recent_time);
@@ -49,6 +58,8 @@ public class MessageAdapter extends ArrayAdapter<BmobRecent> implements Filterab
 		if(item.getType()==BmobConfig.TYPE_TEXT){
 			SpannableString spannableString = FaceTextUtils.toSpannableString(mContext, item.getMessage());
 			tv_recent_msg.setText(spannableString);
+		} else if(item.getType()==BmobConfig.TYPE_IMAGE){
+			tv_recent_msg.setText("[图片]");
 		}
 		
 		int num = BmobDB.create(mContext).getUnreadCount(item.getTargetid());
@@ -58,6 +69,34 @@ public class MessageAdapter extends ArrayAdapter<BmobRecent> implements Filterab
 		} else {
 			tv_recent_unread.setVisibility(View.GONE);
 		}
+		
+		BmobChatUser user = ChatApplication.getInstance().getContactList().get(item.getUserName());
+		if (!TextUtils.isEmpty(user.getAvatar())){
+			ImageLoader.getInstance().displayImage(user.getAvatar(),
+					iv_recent_avatar, 
+					ChatApplication.getInstance().getAvatarDisplayOptions());
+		} else {
+			iv_recent_avatar.setImageResource(R.drawable.ic_default_avatar);
+		}
+		
+//		new BmobQuery<UserInfo>().getObject(mContext, item.getTargetid(), new GetListener<UserInfo>() {
+//			
+//			public void onSuccess(UserInfo user) {
+//				if (!TextUtils.isEmpty(user.getAvatar())){
+//					ImageLoader.getInstance().displayImage(user.getAvatar(),
+//							iv_recent_avatar, 
+//							ChatApplication.getInstance().getAvatarDisplayOptions());
+//				} else {
+//					iv_recent_avatar.setImageResource(R.drawable.ic_default_avatar);
+//				}
+//			}
+//			
+//			@Override
+//			public void onFailure(int arg0, String msg) {
+//				
+//			}
+//		});
+		
 		return convertView;
 	}
 }

@@ -143,7 +143,7 @@ public class MainActivity extends ActivityBase implements EventListener {
 			if (!fragments[index].isAdded()){
 				transaction.add(R.id.fragment_container, fragments[index]);
 			}
-			transaction.show(fragments[index]).commit();
+			transaction.hide(fragments[currentTabIndex]).show(fragments[index]).commit();
 			
 			titleTextView.setText(titles[index]);
 			tabButtons[index].setSelected(true);
@@ -256,5 +256,10 @@ public class MainActivity extends ActivityBase implements EventListener {
 		}
 		//取消定时检测服务
 		BmobChat.getInstance(this).stopPollService();
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle bundle) {
+	    // Empty
 	}
 }

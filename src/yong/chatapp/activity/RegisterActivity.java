@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -98,6 +99,12 @@ public class RegisterActivity extends BaseActivity {
 		final UserInfo user = new UserInfo();
 		user.setUsername(nameString);
 		user.setPassword(password);
+		
+		if (((RadioButton)findViewById(R.id.man)).isChecked()) {
+			user.setSex(true);
+		} else {
+			user.setSex(false);
+		}
 		
 		user.setDeviceType("android");
 		user.setInstallId(BmobInstallation.getInstallationId(this));

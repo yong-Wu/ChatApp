@@ -2,10 +2,17 @@ package yong.chatapp;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
 import cn.bmob.im.BmobUserManager;
 import cn.bmob.im.bean.BmobChatUser;
 import yong.chatapp.util.SharePreferenceUtils;
 import android.app.Application;
+import android.graphics.Bitmap.Config;
 import android.media.MediaPlayer;
 
 public class ChatApplication extends Application {
@@ -27,7 +34,28 @@ public class ChatApplication extends Application {
 	}
 
 	private void Init() {
-		
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+		// 线程池内加载的数量
+		.threadPoolSize(3).threadPriority(Thread.NORM_PRIORITY - 2)
+		.memoryCache(new WeakMemoryCache())
+		.denyCacheImageMultipleSizesInMemory()
+		.tasksProcessingOrder(QueueProcessingType.LIFO)
+		.writeDebugLogs() 
+		.build();
+	
+		// Initialize ImageLoader with configuration.
+		ImageLoader.getInstance().init(config);
+	}
+	
+	public DisplayImageOptions getAvatarDisplayOptions(){
+		int defaultRes =R.drawable.ic_default_avatar;
+		return new DisplayImageOptions.Builder()
+					.cacheInMemory(true)
+					.cacheOnDisk(true)
+					.showImageOnLoading(defaultRes)
+					.showImageForEmptyUri(defaultRes)
+					.showImageOnFail(defaultRes)
+					.bitmapConfig(Config.RGB_565).build();
 	}
 	
 	public static ChatApplication getInstance() {

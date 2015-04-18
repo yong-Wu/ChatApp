@@ -1,6 +1,9 @@
 package yong.chatapp.adapter;
 
 import java.util.List;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import yong.chatapp.ChatApplication;
 import yong.chatapp.R;
 import yong.chatapp.util.CollectionUtils;
@@ -11,6 +14,7 @@ import cn.bmob.im.db.BmobDB;
 import cn.bmob.v3.listener.UpdateListener;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +113,12 @@ public class NewFriendAdapter extends BaseAdapter {
 		}
 		
 		viewHolder.name.setText(msg.getFromname());
+		viewHolder.avatar.setImageResource(R.drawable.ic_default_avatar);
+		if (!TextUtils.isEmpty(msg.getAvatar())){
+			ImageLoader.getInstance().displayImage(msg.getAvatar(),
+					viewHolder.avatar, 
+					ChatApplication.getInstance().getAvatarDisplayOptions());
+		}
 		
 		return convertView;
 	}

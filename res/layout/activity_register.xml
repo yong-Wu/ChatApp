@@ -73,6 +73,46 @@
              	</RelativeLayout>
 	         </LinearLayout>
 	
+	         <LinearLayout 
+	             android:layout_height="wrap_content"
+	             android:layout_width="match_parent"
+	             android:layout_marginTop="10dp"
+	             android:layout_marginLeft="10dp"
+	             android:orientation="horizontal" >
+	             
+	             <TextView 
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:textSize="18sp"
+             		 android:textColor="@color/gray"
+	                 android:text="性别："/>
+	             
+	             <RadioGroup
+	                 android:layout_width="match_parent"
+	                 android:layout_height="match_parent"
+	                 android:orientation="horizontal"
+	                 android:gravity="center_vertical" >
+	             
+	                 <RadioButton 
+	                     android:id="@+id/man"
+	                     android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:checked="true"
+             		 	 android:textColor="@color/gray"
+		                 android:text="男" />
+	                 
+	                 <RadioButton 
+	                     android:id="@+id/woman"
+	                     android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:layout_marginLeft="15dp"
+             		 	 android:textColor="@color/gray"
+		                 android:text="女"/>
+	                 
+	         	</RadioGroup>
+	         </LinearLayout>
+	        
+	         
 	         <Button
 	             android:id="@+id/btn_register"
 	             android:layout_width="fill_parent"

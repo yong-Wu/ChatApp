@@ -1,5 +1,6 @@
 package yong.chatapp.activity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import cn.bmob.im.BmobChatManager;
@@ -9,6 +10,7 @@ import cn.bmob.im.bean.BmobMsg;
 import cn.bmob.im.config.BmobConfig;
 import cn.bmob.im.db.BmobDB;
 import cn.bmob.im.inteface.EventListener;
+import cn.bmob.im.inteface.UploadListener;
 import cn.bmob.im.util.BmobLog;
 import yong.chatapp.MessageReceiver;
 import yong.chatapp.R;
@@ -23,13 +25,19 @@ import yong.chatapp.xlistview.XListView;
 import yong.chatapp.xlistview.XListView.IXListViewListener;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.text.Selection;
 import android.text.Spannable;
@@ -51,6 +59,7 @@ public class ChatActivity extends ActivityBase implements View.OnClickListener,
 	
 	UserInfo userInfo;
 	
+	ImageView sendPicture;
 	ImageView sendEmotion;
 	ImageView sendText;
 	EmotionEditText editContent;
@@ -64,6 +73,12 @@ public class ChatActivity extends ActivityBase implements View.OnClickListener,
 	public static final int NEW_MESSAGE = 0x001;// 收到消息
 	
 	private static int MsgPagerNum;
+	
+	private static final int PHOTO_REQUEST_TAKEPHOTO = 1;	// 拍照
+	private static final int PHOTO_REQUEST_GALLERY = 2;	  	// 相册
+	
+	String pictureDir = Environment.getExternalStorageDirectory() + "/picture/";
+	private String localPicturePath = ""; //拍照图片存储路径
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -119,12 +134,14 @@ public class ChatActivity extends ActivityBase implements View.OnClickListener,
 			}
 		});
 		
+		sendPicture = (ImageView)findViewById(R.id.btn_picture);
 		sendEmotion = (ImageView)findViewById(R.id.btn_emotion);
 		sendText = (ImageView)findViewById(R.id.btn_send);
 		editContent = (EmotionEditText)findViewById(R.id.edit_content);
 		layoutEmotion = (LinearLayout)findViewById(R.id.layout_emotion);
 		mListView = (XListView)findViewById(R.id.chat_list);
 		
+		sendPicture.setOnClickListener(this);
 		sendEmotion.setOnClickListener(this);
 		sendText.setOnClickListener(this);
 		editContent.setOnClickListener(this);
@@ -234,6 +251,36 @@ public class ChatActivity extends ActivityBase implements View.OnClickListener,
 			refreshMessage(message);
 			break;
 
+		case R.id.btn_picture:
+			new AlertDialog.Builder(this)
+			.setPositiveButton("拍照", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					File dir = new File(pictureDir);
+					if (!dir.exists()){
+						dir.mkdirs();
+					}
+					File file = new File(dir, String.valueOf(System.currentTimeMillis())+".jpg");
+					localPicturePath = file.getPath();
+					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+					startActivityForResult(intent, PHOTO_REQUEST_TAKEPHOTO);
+				}
+			})
+			.setNegativeButton("相册", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+					Intent intent = new Intent(Intent.ACTION_PICK, null);
+					intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+					startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
+				}
+			}).show();
+			break;
+			
 		case R.id.btn_emotion:
 			if (layoutEmotion.getVisibility() == View.VISIBLE) {
 				layoutEmotion.setVisibility(View.GONE);
@@ -393,5 +440,62 @@ public class ChatActivity extends ActivityBase implements View.OnClickListener,
 				mAdapter.notifyDataSetChanged();
 			}
 		}
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case PHOTO_REQUEST_TAKEPHOTO:
+				sendPictureMessage(localPicturePath);
+				break;
+				
+			case PHOTO_REQUEST_GALLERY:
+				if (data != null){
+					Uri selectPic = data.getData();
+					if (selectPic != null){
+						Cursor cursor = getContentResolver().query(selectPic, null, null, null, null);
+						cursor.moveToFirst();
+						int columnIndex = cursor.getColumnIndex("_data");
+						String localSelectPath = cursor.getString(columnIndex);
+						cursor.close();
+						if (TextUtils.isEmpty(localSelectPath)){
+							ShowToast("找不到您要发送的图片");
+							return;
+						}
+						sendPictureMessage(localSelectPath);
+					}
+				}
+				break;
+				
+			default:
+				break;
+			}
+		}
+	}
+	
+	void sendPictureMessage(String path){
+		if (layoutEmotion.getVisibility() == View.VISIBLE) {
+			layoutEmotion.setVisibility(View.GONE);
+		}
+		hideSoftInputView();
+		
+		chatManager.sendImageMessage(userInfo, path, new UploadListener() {
+			
+			@Override
+			public void onSuccess() {
+				mAdapter.notifyDataSetChanged();
+			}
+			
+			@Override
+			public void onStart(BmobMsg msg) {
+				refreshMessage(msg);
+			}
+			
+			@Override
+			public void onFailure(int arg0, String arg1) {
+				mAdapter.notifyDataSetChanged();
+			}
+		});
 	}
 }
