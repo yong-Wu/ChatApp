@@ -33,8 +33,8 @@ public class MessageReceiver extends BroadcastReceiver {
 	public static int mPushMsgNum = 0;
 	public static final int NOTIFY_ID = 0;
 	
-	BmobUserManager userManager;
-	BmobChatUser currentUser;
+	private BmobUserManager userManager;
+	private BmobChatUser currentUser;
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
